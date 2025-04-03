@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>My Event Registrations</h2>
+
+    <form method="get" class="mb-3">
+        <label for="status">Filter by Status:</label>
+        <select name="status" id="status" onchange="this.form.submit()">
+            <option value="all" {% if selected_status == 'all' %}selected{% endif %}>All</option>
+            <option value="upcoming" {% if selected_status == 'upcoming' %}selected{% endif %}>Upcoming</option>
+            <option value="ongoing" {% if selected_status == 'ongoing' %}selected{% endif %}>Ongoing</option>
+            <option value="past" {% if selected_status == 'past' %}selected{% endif %}>Past</option>
+        </select>
+    </form>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Event Name</th>
+                <th>Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for registration in registrations %}
+            <tr>
+                <td>{{ registration.event.name }}</td>
+                <td>{{ registration.event.date }}</td>
+                <td>
+                    {% if registration.event.date > today %}
+                        Upcoming
+                    {% elif registration.event.date == today %}
+                        Ongoing
+                    {% else %}
+                        Past
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No registered events.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

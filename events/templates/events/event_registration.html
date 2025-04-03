@@ -1,0 +1,25 @@
+{% extends 'events/base.html' %}
+{% block title %}My Registrations{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>My Registrations</h1>
+    
+    {% if registrations %}
+        <ul>
+            {% for reg in registrations %}
+                <li>
+                    <a href="{% url 'event_detail' reg.event.id %}">{{ reg.event.name }}</a>  
+                    <strong>Date:</strong> {{ reg.event.date }} 
+                    <form method="post" action="{% url 'unregister_event' reg.event.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm">Unregister</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven't registered for any events yet.</p>
+    {% endif %}
+</div>
+{% endblock %}

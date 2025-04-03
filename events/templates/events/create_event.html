@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1>Create a New Event</h1>
+    
+    <form method="POST" enctype="multipart/form-data">  <!-- Added enctype for file upload -->
+        {% csrf_token %}
+        
+        <label for="id_name">Event Name:</label>
+        {{ form.name }}
+        
+        <label for="id_description">Description:</label>
+        {{ form.description }}
+        
+        <label for="id_date">Date:</label>
+        {{ form.date }}
+        
+        <label for="id_start_time">Start Time:</label>
+        {{ form.start_time }}
+        
+        <label for="id_end_time">End Time:</label>
+        {{ form.end_time }}
+        
+        <label for="id_location">Location:</label>
+        {{ form.location }}
+
+        <label for="id_banner">Event Banner:</label>  <!-- Added banner field -->
+        {{ form.banner }}
+        
+        <button type="submit">Create Event</button>
+    </form>
+    
+    <a href="{% url 'event_list' %}">Back to Events</a>
+</body>
+</html>

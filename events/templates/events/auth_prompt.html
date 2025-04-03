@@ -1,0 +1,31 @@
+{% extends 'events/base.html' %}
+{% block title %}Register for Event{% endblock %}
+
+{% block content %}
+  <div class="container">
+    <h1>Register for "{{ event.name }}"</h1>
+    <p>You need to log in or create an account to register for this event.</p>
+
+    <div class="auth-options">
+      <div class="login">
+        <h3>Already have an account?</h3>
+        <form method="post" action="{% url 'register_event' event.id %}">
+          {% csrf_token %}
+          {{ login_form.as_p }}
+          <input type="hidden" name="login_submit" value="1">
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+      </div>
+
+      <div class="register">
+        <h3>New user? Register now</h3>
+        <form method="post" action="{% url 'register_event' event.id %}">
+          {% csrf_token %}
+          {{ register_form.as_p }}
+          <input type="hidden" name="register_submit" value="1">
+          <button type="submit" class="btn btn-success">Register</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

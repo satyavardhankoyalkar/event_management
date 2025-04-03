@@ -1,0 +1,35 @@
+{% extends 'events/base.html' %}
+{% load static %}
+
+{% block title %}Edit Event{% endblock %}
+
+{% block content %}
+  <h2>Edit Event</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <label for="id_name">Event Name:</label>
+    {{ form.name }}
+    
+    <label for="id_description">Description:</label>
+    {{ form.description }}
+    
+    <label for="id_date">Date:</label>
+    {{ form.date }}
+    
+    <label for="id_start_time">Start Time:</label>
+    {{ form.start_time }}
+    
+    <label for="id_end_time">End Time:</label>
+    {{ form.end_time }}
+    
+    <label for="id_location">Location:</label>
+    {{ form.location }}
+    
+    <label for="id_banner">Event Banner:</label>
+    {{ form.banner }}
+
+    <button type="submit">Update Event</button>
+  </form>
+  <a href="{% url 'event_detail' event.id %}">Cancel</a>
+{% endblock %}
